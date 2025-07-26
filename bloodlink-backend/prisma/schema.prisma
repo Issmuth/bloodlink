@@ -1,0 +1,142 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String    @id @default(cuid())
+  email             String    @unique
+  password          String
+  role              String    // "DONOR" or "HEALTH_CENTER"
+  phone             String
+  location          String
+  telegramUsername  String?   // used for telegram notification on donation events
+  telegramChatId    String?   // Telegram chat ID for direct bot messaging
+  status            String    @default("PENDING_VERIFICATION") // "ACTIVE", "INACTIVE", "SUSPENDED", "PENDING_VERIFICATION"
+  emailVerified     Boolean   @default(false)
+  phoneVerified     Boolean   @default(false)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  lastLoginAt       DateTime?
+
+  // Relationships
+  donor            Donor?
+  healthCenter     HealthCenter?
+
+  @@map("users")
+}
+
+model Donor {
+  id          String    @id @default(cuid())
+  userId      String    @unique
+  fullName    String
+  bloodType   String    // "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"
+  dateOfBirth DateTime?
+  weight      Float?     // in kg
+  lastDonation DateTime?
+  donationCount Int      @default(0)
+  isAvailable Boolean   @default(true)
+  medicalNotes String?
+  emergencyContact String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relationships
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  responses   DonorResponse[]
+
+  @@map("donors")
+}
+
+model HealthCenter {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  centerName      String
+  contactPerson   String
+  registrationNumber String?
+  centerType      String?  // Hospital, Clinic, Blood Bank, etc.
+  capacity        Int?     // Number of beds or capacity
+  operatingHours  String?
+  services        String?  // Comma-separated list of services provided
+  verified        Boolean  @default(false)
+  verificationDoc String?  // URL to verification document
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relationships
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bloodRequests  BloodRequest[]
+
+  @@map("health_centers")
+}
+
+model BloodRequest {
+  id                      String   @id @default(cuid())
+  healthCenterId          String
+  bloodType               String   // "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"
+  unitsNeeded             Int
+  unitsReceived           Int      @default(0)
+  urgency                 String   // "Normal", "High", "Emergency"
+  procedure               String   // Reason for blood need
+  patientAge              Int?
+  notes                   String?
+  expectedTimeframe       String   // "within-2h", "within-6h", "within-24h", "within-3d", "within-week"
+  expectedFulfillmentDate DateTime
+  contactPreference       String   // "telegram", "phone", "both"
+  status                  String   @default("ACTIVE") // "ACTIVE", "FULFILLED", "CANCELLED", "EXPIRED"
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  // Relationships
+  healthCenter   HealthCenter     @relation(fields: [healthCenterId], references: [id], onDelete: Cascade)
+  responses      DonorResponse[]
+
+  @@map("blood_requests")
+}
+
+model DonorResponse {
+  id              String   @id @default(cuid())
+  bloodRequestId  String
+  donorId         String
+  status          String   @default("PENDING") // "PENDING", "CONFIRMED", "DECLINED", "FULFILLED"
+  availableTime   String?  // When donor is available
+  notes           String?
+  confirmedAt     DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relationships
+  bloodRequest   BloodRequest @relation(fields: [bloodRequestId], references: [id], onDelete: Cascade)
+  donor          Donor        @relation(fields: [donorId], references: [id], onDelete: Cascade)
+
+  @@unique([bloodRequestId, donorId])
+  @@map("donor_responses")
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@map("refresh_tokens")
+}
+
+model PasswordReset {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("password_resets")
+} 
