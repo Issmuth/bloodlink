@@ -46,16 +46,16 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-off-white">
+    <div className="min-h-screen bg-off-white dark:bg-gray-900 transition-colors">
       <Navbar />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-midnight">
+          <h1 className="text-3xl font-bold text-midnight dark:text-gray-50">
             Welcome back, {getUserDisplayName()}
           </h1>
-          <p className="text-gray-600 mt-2">
+          <p className="text-gray-600 dark:text-gray-200 mt-2">
             {userRole === 'donor' ? 'Thank you for being a life-saving donor!' : 'Manage your blood requests and connect with donors'}
           </p>
         </div>
@@ -67,8 +67,8 @@ export default function DashboardPage() {
           <HealthCenterDashboard user={user} />
         ) : (
           <div className="text-center py-12">
-            <h2 className="text-xl font-semibold text-gray-700">Unknown user role</h2>
-            <p className="text-gray-500 mt-2">Please contact support for assistance.</p>
+            <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200">Unknown user role</h2>
+            <p className="text-gray-500 dark:text-gray-300 mt-2">Please contact support for assistance.</p>
           </div>
         )}
       </div>

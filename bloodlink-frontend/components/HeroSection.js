@@ -7,12 +7,12 @@ export default function HeroSection() {
         <div className="lg:grid lg:grid-cols-12 lg:gap-8 items-center">
           {/* Left Content */}
           <div className="lg:col-span-6">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-midnight dark:text-white leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-midnight dark:text-gray-50 leading-tight">
               Donate Blood,{' '}
-              <span className="text-crimson">Save Lives</span>{' '}
+              <span className="text-crimson dark:text-red-400">Save Lives</span>{' '}
               Instantly
             </h1>
-            <p className="mt-6 text-lg sm:text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+            <p className="mt-6 text-lg sm:text-xl text-gray-600 dark:text-gray-200 leading-relaxed">
               Connect hospitals with nearby donors in seconds. Join our mission to make blood donation faster, easier, and more impactful than ever before.
             </p>
             
@@ -30,11 +30,11 @@ export default function HeroSection() {
             <div className="mt-12 flex items-center gap-8">
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-teal-green rounded-full"></div>
-                <span className="text-sm text-gray-600 dark:text-gray-400">24/7 Available</span>
+                <span className="text-sm text-gray-600 dark:text-gray-300">24/7 Available</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-3 h-3 bg-teal-green rounded-full"></div>
-                <span className="text-sm text-gray-600 dark:text-gray-400">Verified Donors</span>
+                <span className="text-sm text-gray-600 dark:text-gray-300">Verified Donors</span>
               </div>
             </div>
           </div>
