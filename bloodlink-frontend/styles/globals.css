@@ -3,17 +3,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Dark mode base styles */
 @layer base {
   html {
-    scroll-behavior: smooth;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   
-  body {
-    font-family: 'Inter', 'Poppins', system-ui, sans-serif;
+  .dark {
+    color-scheme: dark;
   }
 }
 
-/* Custom Dashboard Styles */
+/* Custom Dashboard Styles with dark mode support */
 @layer components {
   .btn-primary {
     @apply bg-crimson hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-crimson focus:ring-opacity-50;
@@ -24,7 +25,7 @@
   }
   
   .btn-outline {
-    @apply border-2 border-crimson text-crimson hover:bg-crimson hover:text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-crimson focus:ring-opacity-50;
+    @apply border-2 border-crimson text-crimson hover:bg-crimson hover:text-white dark:border-crimson dark:text-crimson dark:hover:bg-crimson dark:hover:text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-crimson focus:ring-opacity-50;
   }
   
   .card {
