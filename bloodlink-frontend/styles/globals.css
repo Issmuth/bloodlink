@@ -12,6 +12,10 @@
   .dark {
     color-scheme: dark;
   }
+  
+  body {
+    @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors;
+  }
 }
 
 /* Custom Dashboard Styles with dark mode support */
@@ -29,7 +33,7 @@
   }
   
   .card {
-    @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6;
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-colors;
   }
   
   .card-hover {
@@ -37,11 +41,11 @@
   }
   
   .form-input {
-    @apply w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-crimson focus:border-transparent transition-colors duration-200;
+    @apply w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-crimson focus:border-transparent transition-colors duration-200;
   }
   
   .form-label {
-    @apply block text-sm font-medium text-midnight mb-1;
+    @apply block text-sm font-medium text-midnight dark:text-gray-200 mb-1;
   }
   
   .badge {
@@ -70,6 +74,10 @@
   
   .badge-fulfilled {
     @apply bg-green-100 text-green-800 border border-green-200;
+  }
+  
+  .dashboard-card {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 transition-shadow duration-200;
   }
 }
 

@@ -39,14 +39,14 @@ export default function HowItWorksSection() {
   ]
 
   return (
-    <section id="how-it-works" className="py-20 bg-white">
+    <section id="how-it-works" className="py-20 bg-white dark:bg-gray-900 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-midnight mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-midnight dark:text-white mb-4">
             How It Works
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Our streamlined process connects donors with hospitals in just three simple steps
           </p>
         </div>
@@ -63,7 +63,7 @@ export default function HowItWorksSection() {
               )}
               
               {/* Card */}
-              <div className="bg-white rounded-2xl p-8 card-shadow border border-gray-100 relative z-10 text-center">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 card-shadow border border-gray-100 relative z-10 text-center">
                 {/* Step Number */}
                 <div className="inline-flex items-center justify-center w-8 h-8 bg-crimson text-white rounded-full text-sm font-bold mb-6">
                   {step.id}
