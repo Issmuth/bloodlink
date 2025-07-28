@@ -49,14 +49,14 @@ export default function ImpactSection() {
   ]
 
   return (
-    <section className="py-20 bg-gradient-to-br from-gray-50 to-off-white">
+    <section className="py-20 bg-gray-50 dark:bg-gray-800 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-midnight mb-4">
-            Our <span className="text-crimson">Impact</span> So Far
+          <h2 className="text-3xl sm:text-4xl font-bold text-midnight dark:text-gray-50 mb-4">
+            Our <span className="text-crimson dark:text-red-400">Impact</span> So Far
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-200 max-w-2xl mx-auto">
             Together, we're building a network that saves lives every day
           </p>
         </div>
@@ -66,7 +66,7 @@ export default function ImpactSection() {
           {stats.map((stat, index) => (
             <div 
               key={index} 
-              className="bg-white rounded-2xl p-6 lg:p-8 card-shadow border border-gray-100 text-center group hover:scale-105 transition-transform duration-300"
+              className="bg-white dark:bg-gray-700 rounded-2xl p-6 lg:p-8 card-shadow border border-gray-100 dark:border-gray-600 text-center group hover:scale-105 transition-transform duration-300"
             >
               {/* Icon */}
               <div className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-4 ${stat.color} bg-gray-50 group-hover:bg-gray-100 transition-colors`}>
@@ -74,17 +74,17 @@ export default function ImpactSection() {
               </div>
               
               {/* Number */}
-              <div className="text-3xl lg:text-4xl font-bold text-midnight mb-2">
+              <div className="text-3xl lg:text-4xl font-bold text-midnight dark:text-gray-50 mb-2">
                 {stat.number}
               </div>
               
               {/* Label */}
-              <div className="text-lg font-semibold text-midnight mb-2">
+              <div className="text-lg font-semibold text-midnight dark:text-gray-100 mb-2">
                 {stat.label}
               </div>
               
               {/* Description */}
-              <div className="text-sm text-gray-600">
+              <div className="text-sm text-gray-600 dark:text-gray-200">
                 {stat.description}
               </div>
             </div>
@@ -93,24 +93,24 @@ export default function ImpactSection() {
 
         {/* Bottom Section */}
         <div className="mt-16 text-center">
-          <div className="bg-white rounded-2xl p-8 lg:p-12 card-shadow border border-gray-100 max-w-4xl mx-auto">
-            <h3 className="text-2xl font-bold text-midnight mb-4">
-              Be Part of Something <span className="text-crimson">Life-Changing</span>
+          <div className="bg-white dark:bg-gray-700 rounded-2xl p-8 lg:p-12 card-shadow border border-gray-100 dark:border-gray-600 max-w-4xl mx-auto">
+            <h3 className="text-2xl font-bold text-midnight dark:text-gray-50 mb-4">
+              Be Part of Something <span className="text-crimson dark:text-red-400">Life-Changing</span>
             </h3>
-            <p className="text-lg text-gray-600 mb-8">
+            <p className="text-lg text-gray-600 dark:text-gray-200 mb-8">
               Every donation has the potential to save up to three lives. Join thousands of heroes who have already made a difference.
             </p>
             
             {/* Progress Bar */}
             <div className="mb-8">
-              <div className="flex justify-between text-sm text-gray-600 mb-2">
+              <div className="flex justify-between text-sm text-gray-600 dark:text-gray-200 mb-2">
                 <span>Monthly Goal Progress</span>
                 <span>84% Complete</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-3">
                 <div className="bg-gradient-to-r from-crimson to-red-500 h-3 rounded-full" style={{ width: '84%' }}></div>
               </div>
-              <p className="text-sm text-gray-500 mt-2">126 more donations needed this month</p>
+              <p className="text-sm text-gray-500 dark:text-gray-300 mt-2">126 more donations needed this month</p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

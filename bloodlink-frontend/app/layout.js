@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import { AuthProvider } from '../contexts/AuthContext'
+import { DarkModeProvider } from '../contexts/DarkModeContext'
 
 export const metadata = {
   title: 'Bloodlink - Blood Donor Platform | Donate Blood, Save Lives',
@@ -45,9 +46,11 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="min-h-screen">
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <DarkModeProvider>
+          <AuthProvider>
+            {children}
+          </AuthProvider>
+        </DarkModeProvider>
       </body>
     </html>
   )

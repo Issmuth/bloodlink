@@ -1,72 +1,39 @@
-export default function FormInput({ 
-  label, 
-  type = 'text', 
-  placeholder, 
-  value, 
-  onChange, 
-  error, 
-  required = false, 
-  options = [], 
-  ...props 
-}) {
-  const inputClasses = `form-input ${error ? 'border-crimson ring-crimson ring-1' : ''}`
-
-  if (type === 'select') {
-    return (
-      <div className="mb-4">
-        <label className="form-label">
-          {label} {required && <span className="text-crimson">*</span>}
+export default function FormInput({ label, error, className = '', ...props }) {
+  return (
+    <div className={className}>
+      {label && (
+        <label className="block text-sm font-medium text-midnight dark:text-gray-100 mb-2">
+          {label}
+          {props.required && <span className="text-crimson dark:text-red-400 ml-1">*</span>}
         </label>
+      )}
+      
+      {props.type === 'select' ? (
         <select
-          value={value}
-          onChange={onChange}
-          className={inputClasses}
+          className={`form-input ${error ? 'border-crimson dark:border-red-400' : ''}`}
           {...props}
         >
-          <option value="">{placeholder}</option>
-          {options.map((option) => (
+          {props.placeholder && (
+            <option value="" className="text-gray-500 dark:text-gray-400">
+              {props.placeholder}
+            </option>
+          )}
+          {props.options?.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
           ))}
         </select>
-        {error && <p className="text-crimson text-sm mt-1">{error}</p>}
-      </div>
-    )
-  }
-
-  if (type === 'textarea') {
-    return (
-      <div className="mb-4">
-        <label className="form-label">
-          {label} {required && <span className="text-crimson">*</span>}
-        </label>
-        <textarea
-          value={value}
-          onChange={onChange}
-          placeholder={placeholder}
-          className={`${inputClasses} min-h-[100px] resize-y`}
+      ) : (
+        <input
+          className={`form-input ${error ? 'border-crimson dark:border-red-400' : ''}`}
           {...props}
         />
-        {error && <p className="text-crimson text-sm mt-1">{error}</p>}
-      </div>
-    )
-  }
-
-  return (
-    <div className="mb-4">
-      <label className="form-label">
-        {label} {required && <span className="text-crimson">*</span>}
-      </label>
-      <input
-        type={type}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        className={inputClasses}
-        {...props}
-      />
-      {error && <p className="text-crimson text-sm mt-1">{error}</p>}
+      )}
+      
+      {error && (
+        <p className="text-crimson dark:text-red-400 text-sm mt-1">{error}</p>
+      )}
     </div>
   )
-} 
+}

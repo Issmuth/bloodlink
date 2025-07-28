@@ -126,25 +126,25 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-off-white to-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-off-white to-gray-50 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 transition-colors">
       <div className="max-w-md w-full">
         {/* Header */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-block">
-            <h1 className="text-3xl font-bold text-midnight">
-              <span className="text-crimson">Life</span>line
+            <h1 className="text-3xl font-bold text-midnight dark:text-gray-50">
+              <span className="text-crimson dark:text-red-400">Life</span>line
             </h1>
           </Link>
-          <h2 className="mt-6 text-2xl font-bold text-midnight">
+          <h2 className="mt-6 text-2xl font-bold text-midnight dark:text-gray-50">
             Welcome Back
           </h2>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-gray-600 dark:text-gray-200">
             Sign in to your account to continue
           </p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white rounded-2xl shadow-lg p-8">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border dark:border-gray-600">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Role Selector */}
             <FormInput
@@ -187,7 +187,7 @@ export default function LoginPage() {
             <div className="flex justify-end">
               <Link
                 href="/forgot-password"
-                className="text-sm text-crimson hover:text-red-700 font-medium"
+                className="text-sm text-crimson dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium"
               >
                 Forgot your password?
               </Link>
@@ -215,11 +215,11 @@ export default function LoginPage() {
 
           {/* Registration Link */}
           <div className="mt-6 text-center">
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-200">
               Don't have an account?{' '}
               <Link
                 href="/register"
-                className="font-medium text-crimson hover:text-red-700 transition-colors"
+                className="font-medium text-crimson dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors"
               >
                 Register here
               </Link>
@@ -231,7 +231,7 @@ export default function LoginPage() {
         <div className="mt-8 text-center">
           <Link
             href="/"
-            className="inline-flex items-center text-gray-600 hover:text-midnight transition-colors"
+            className="inline-flex items-center text-gray-600 dark:text-gray-300 hover:text-midnight dark:hover:text-gray-100 transition-colors"
           >
             <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
               <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />

@@ -206,36 +206,36 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-off-white to-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-off-white to-gray-50 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8 transition-colors">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-block">
-            <h1 className="text-3xl font-bold text-midnight">
-              <span className="text-crimson">Life</span>line
+            <h1 className="text-3xl font-bold text-midnight dark:text-gray-50">
+              <span className="text-crimson dark:text-red-400">Life</span>line
             </h1>
           </Link>
-          <h2 className="mt-6 text-2xl font-bold text-midnight">
+          <h2 className="mt-6 text-2xl font-bold text-midnight dark:text-gray-50">
             Join Our Community
           </h2>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-gray-600 dark:text-gray-200">
             Register to start saving lives or find donors
           </p>
         </div>
 
         {/* Registration Form */}
-        <div className="bg-white rounded-2xl shadow-lg p-8">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border dark:border-gray-600">
           {/* Role Toggle */}
           <div className="mb-8">
-            <p className="text-sm font-medium text-midnight mb-4 text-center">I want to register as:</p>
-            <div className="flex rounded-lg bg-gray-100 p-1">
+            <p className="text-sm font-medium text-midnight dark:text-gray-100 mb-4 text-center">I want to register as:</p>
+            <div className="flex rounded-lg bg-gray-100 dark:bg-gray-700 p-1">
               <button
                 type="button"
                 onClick={() => setActiveRole('donor')}
                 className={`flex-1 py-3 px-4 rounded-md font-medium transition-all ${
                   activeRole === 'donor'
                     ? 'bg-crimson text-white shadow-sm'
-                    : 'text-gray-600 hover:text-midnight'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-midnight dark:hover:text-gray-100'
                 }`}
               >
                 Blood Donor
@@ -246,7 +246,7 @@ export default function RegisterPage() {
                 className={`flex-1 py-3 px-4 rounded-md font-medium transition-all ${
                   activeRole === 'health_center'
                     ? 'bg-crimson text-white shadow-sm'
-                    : 'text-gray-600 hover:text-midnight'
+                    : 'text-gray-600 dark:text-gray-300 hover:text-midnight dark:hover:text-gray-100'
                 }`}
               >
                 Health Center
@@ -364,7 +364,7 @@ export default function RegisterPage() {
             </div>
 
             {/* Telegram Username - Optional but highlighted */}
-            <div className="bg-gradient-to-r from-teal-green/10 to-teal-green/5 p-4 rounded-lg border border-teal-green/20">
+            <div className="bg-gradient-to-r from-teal-green/10 to-teal-green/5 dark:from-teal-green/20 dark:to-teal-green/10 p-4 rounded-lg border border-teal-green/20 dark:border-teal-green/30">
               <FormInput
                 label={`Telegram Username${activeRole === 'health_center' ? ' or Group ID' : ''}`}
                 name="telegramUsername"
@@ -373,7 +373,7 @@ export default function RegisterPage() {
                 placeholder={activeRole === 'donor' ? '@yourusername' : '@yourusername or group ID'}
                 error={errors.telegramUsername}
               />
-              <p className="text-sm text-teal-green mt-1">
+              <p className="text-sm text-teal-green dark:text-teal-400 mt-1">
                 <span className="font-medium">Recommended:</span> Get instant notifications about donation requests and updates via Telegram.
                 {/* used for telegram notification on donation events */}
               </p>
@@ -388,20 +388,20 @@ export default function RegisterPage() {
                   name="acceptTerms"
                   checked={formData.acceptTerms}
                   onChange={handleInputChange}
-                  className="mt-1 h-4 w-4 text-crimson focus:ring-crimson border-gray-300 rounded"
+                  className="mt-1 h-4 w-4 text-crimson focus:ring-crimson border-gray-300 dark:border-gray-500 dark:bg-gray-700 rounded"
                 />
-                <label htmlFor="acceptTerms" className="ml-3 text-sm text-gray-600">
+                <label htmlFor="acceptTerms" className="ml-3 text-sm text-gray-600 dark:text-gray-200">
                   I agree to the{' '}
-                  <Link href="/terms" className="text-crimson hover:text-red-700 font-medium">
+                  <Link href="/terms" className="text-crimson dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium">
                     Terms and Conditions
                   </Link>{' '}
                   and{' '}
-                  <Link href="/privacy" className="text-crimson hover:text-red-700 font-medium">
+                  <Link href="/privacy" className="text-crimson dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium">
                     Privacy Policy
                   </Link>
                 </label>
               </div>
-              {errors.acceptTerms && <p className="text-crimson text-sm mt-1 ml-7">{errors.acceptTerms}</p>}
+              {errors.acceptTerms && <p className="text-crimson dark:text-red-400 text-sm mt-1 ml-7">{errors.acceptTerms}</p>}
             </div>
 
             {/* Submit Button */}
@@ -426,11 +426,11 @@ export default function RegisterPage() {
 
           {/* Login Link */}
           <div className="mt-6 text-center">
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-200">
               Already have an account?{' '}
               <Link 
                 href="/login" 
-                className="font-medium text-crimson hover:text-red-700 transition-colors"
+                className="font-medium text-crimson dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-colors"
               >
                 Sign in here
               </Link>
@@ -442,7 +442,7 @@ export default function RegisterPage() {
         <div className="mt-8 text-center">
           <Link 
             href="/" 
-            className="inline-flex items-center text-gray-600 hover:text-midnight transition-colors"
+            className="inline-flex items-center text-gray-600 dark:text-gray-300 hover:text-midnight dark:hover:text-gray-100 transition-colors"
           >
             <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
               <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
