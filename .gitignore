@@ -1,3 +1,10 @@
+# Frontend
 /bloodlink-frontend/node_modules
-/bloodlink-backend/node_modules
 /bloodlink-frontend/.next
+
+# Backend
+/bloodlink-backend/node_modules
+
+# Shared
+/node_modules
+.next

@@ -1,6 +1,5 @@
 import '../styles/globals.css'
-import { AuthProvider } from '../contexts/AuthContext'
-import { DarkModeProvider } from '../contexts/DarkModeContext'
+import ClientProviders from '../components/ClientProviders'
 
 export const metadata = {
   title: 'Bloodlink - Blood Donor Platform | Donate Blood, Save Lives',
@@ -32,25 +31,24 @@ export const metadata = {
     apple: '/apple-touch-icon.png',
   },
   manifest: '/manifest.json',
+}
 
-  // Other meta tags
-  viewport: 'width=device-width, initial-scale=1',
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* Preconnect to external domains for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="min-h-screen">
-        <DarkModeProvider>
-          <AuthProvider>
-            {children}
-          </AuthProvider>
-        </DarkModeProvider>
+        <ClientProviders>
+          {children}
+        </ClientProviders>
       </body>
     </html>
   )
