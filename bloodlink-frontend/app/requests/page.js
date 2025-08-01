@@ -5,22 +5,47 @@ import { useAuth } from '../../contexts/AuthContext';
 import api from '../../lib/api';
 
 export default function BloodRequestsPage() {
-    const { user } = useAuth();
+    const { user, isLoading: authLoading } = useAuth();
     const [bloodRequests, setBloodRequests] = useState([]);
     const [filter, setFilter] = useState('');
+    const [isClient, setIsClient] = useState(false);
+
+    // Ensure we're on client side
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
 
     useEffect(() => {
+        if (!isClient || authLoading) return;
+
         async function fetchBloodRequests() {
             try {
                 const response = await api.get('/blood-requests');
-                setBloodRequests(response.data);
+                setBloodRequests(response.data?.data?.requests || []);
             } catch (error) {
                 console.error('Error fetching blood requests:', error);
             }
         }
 
         fetchBloodRequests();
-    }, []);
+    }, [isClient, authLoading]);
+
+    // Show consistent loading state during hydration
+    if (!isClient || authLoading) {
+        return (
+            <div className="container mx-auto py-8">
+                <div className="animate-pulse">
+                    <div className="h-8 bg-gray-200 rounded w-1/4 mb-4"></div>
+                    <div className="h-10 bg-gray-200 rounded mb-4"></div>
+                    <div className="space-y-4">
+                        {[1,2,3].map(i => (
+                            <div key={i} className="h-20 bg-gray-200 rounded"></div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     const filteredRequests = bloodRequests.filter(request =>
         filter ? request.bloodType === filter : true
