@@ -1,0 +1,9 @@
+{
+  "name": "Bloodlink",
+  "short_name": "Bloodlink",
+  "description": "Blood donor platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#D72638"
+}
