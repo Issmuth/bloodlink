@@ -1,6 +1,6 @@
 # 🩸 Bloodlink Blood Donor Platform - Backend API
 
-A robust Node.js backend API for the Bloodlink Blood Donor Platform, built with Express.js, PostgreSQL, and Prisma ORM. This API handles authentication, user management, and blood donation operations for both donors and health centers.
+A robust Node.js backend API for the Bloodlink Blood Donor Platform, built with Express.js, PostgreSQL, and Prisma ORM. This API handles authentication, user management, blood donation operations, and real-time notifications for both donors and health centers.
 
 ## 🚀 Features
 
@@ -12,6 +12,7 @@ A robust Node.js backend API for the Bloodlink Blood Donor Platform, built with 
 - **Rate Limiting** to prevent abuse
 - **Input Validation** with express-validator
 - **Comprehensive Error Handling**
+- **CORS Configuration** for frontend integration
 
 ### User Management
 
@@ -19,6 +20,7 @@ A robust Node.js backend API for the Bloodlink Blood Donor Platform, built with 
 - **Profile Management** for both donors and health centers
 - **Password Management** (change, reset, forgot)
 - **Account Status Management** (active, suspended, inactive)
+- **Email Verification** system
 
 ### Donor Features
 
@@ -26,13 +28,30 @@ A robust Node.js backend API for the Bloodlink Blood Donor Platform, built with 
 - **Donation History** tracking and management
 - **Availability Management** (available/unavailable status)
 - **Donor Search** by blood type and location
+- **Statistics Dashboard** for donor metrics
 
 ### Health Center Features
 
 - **Health Center Profiles** with facility information
 - **Verification System** for health center validation
 - **Donor Search** for finding compatible donors
-- **Blood Request Management** (coming soon)
+- **Blood Request Management** with urgency levels
+- **Capacity and Services Management**
+
+### Blood Request System
+
+- **Create Blood Requests** with urgency and requirements
+- **Real-time Donor Matching** by blood type and location
+- **Request Status Management** (active, fulfilled, cancelled)
+- **Automated Notifications** to matching donors
+- **Request History** and analytics
+
+### Telegram Integration
+
+- **Bot Integration** for instant notifications
+- **Deep Link Generation** for easy bot connection
+- **Broadcast Messaging** for urgent requests
+- **User Linking** system for Telegram accounts
 
 ### Technical Features
 
@@ -41,6 +60,7 @@ A robust Node.js backend API for the Bloodlink Blood Donor Platform, built with 
 - **Comprehensive Logging** with Morgan
 - **API Documentation** with built-in endpoints
 - **Health Check** endpoints for monitoring
+- **Graceful Shutdown** handling
 
 ## 🛠️ Tech Stack
 
@@ -54,6 +74,7 @@ A robust Node.js backend API for the Bloodlink Blood Donor Platform, built with 
 - **Security**: Helmet, CORS, Rate Limiting
 - **Logging**: Morgan
 - **Environment**: dotenv
+- **HTTP Client**: Axios (for external APIs)
 
 ## 📋 Prerequisites
 
@@ -176,6 +197,25 @@ http://localhost:5000/api
 | GET    | `/health-centers/verification`  | Get verification status      | Yes (HC)      |
 | GET    | `/health-centers/search-donors` | Search for donors            | Yes (HC)      |
 
+### Blood Request Endpoints
+
+| Method | Endpoint                | Description              | Auth Required |
+| ------ | ----------------------- | ------------------------ | ------------- |
+| POST   | `/blood-requests`       | Create blood request     | Yes (HC)      |
+| GET    | `/blood-requests`       | List blood requests      | Yes           |
+| GET    | `/blood-requests/:id`   | Get specific request     | Yes           |
+| PUT    | `/blood-requests/:id`   | Update request status    | Yes (HC)      |
+| DELETE | `/blood-requests/:id`   | Cancel blood request     | Yes (HC)      |
+
+### Telegram Integration Endpoints
+
+| Method | Endpoint                           | Description                    | Auth Required |
+| ------ | ---------------------------------- | ------------------------------ | ------------- |
+| POST   | `/telegram/link-telegram`          | Link Telegram account          | Yes           |
+| GET    | `/telegram/deep-link/:userId`      | Generate deep link             | Yes           |
+| GET    | `/telegram/test-broadcast`         | Test broadcast functionality   | Yes           |
+| POST   | `/telegram/notify-blood-request`   | Send blood request notification| Yes (HC)      |
+
 ## 🔧 API Usage Examples
 
 ### Registration (Donor)
@@ -214,15 +254,20 @@ curl -X POST http://localhost:5000/api/auth/register \
   }'
 ```
 
-### Login
+### Create Blood Request
 
 ```bash
-curl -X POST http://localhost:5000/api/auth/login \
+curl -X POST http://localhost:5000/api/blood-requests \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer your-jwt-token" \
   -d '{
-    "email": "donor@example.com",
-    "password": "SecurePass123",
-    "role": "donor"
+    "bloodType": "O+",
+    "unitsNeeded": 2,
+    "urgency": "High",
+    "patientAge": 45,
+    "procedure": "Emergency Surgery",
+    "notes": "Patient requires immediate transfusion",
+    "expectedTimeframe": "within-6h"
   }'
 ```
 
@@ -240,23 +285,35 @@ curl -X GET "http://localhost:5000/api/health-centers/search-donors?bloodType=O+
 - Basic user information (email, password, role, contact info)
 - Status management (active, inactive, suspended, pending verification)
 - Telegram integration field for notifications
+- Timestamps for creation and updates
 
 ### Donors Table
 
 - Donor-specific information (full name, blood type, medical notes)
 - Donation tracking (count, last donation date)
-- Availability status
+- Availability status and preferences
+- Emergency contact information
 
 ### Health Centers Table
 
 - Health center information (name, contact person, type)
 - Verification status and documentation
 - Capacity and services information
+- Operating hours and facility details
+
+### Blood Requests Table
+
+- Request details (blood type, units needed, urgency)
+- Patient information and procedure details
+- Status tracking (active, fulfilled, cancelled)
+- Timestamps and expiration handling
 
 ### Supporting Tables
 
 - RefreshTokens: JWT refresh token management
 - PasswordResets: Password reset token management
+- Donations: Historical donation records
+- Notifications: Message delivery tracking
 
 ## 🔒 Security Features
 
@@ -272,6 +329,7 @@ curl -X GET "http://localhost:5000/api/health-centers/search-donors?bloodType=O+
 - Role-based access control (RBAC)
 - Route-specific permissions
 - Resource ownership validation
+- Protected endpoint middleware
 
 ### Data Protection
 
@@ -279,6 +337,7 @@ curl -X GET "http://localhost:5000/api/health-centers/search-donors?bloodType=O+
 - Input sanitization and validation
 - SQL injection prevention with Prisma
 - XSS protection with Helmet
+- CORS configuration for frontend integration
 
 ## 🚀 Deployment
 
@@ -290,6 +349,7 @@ DATABASE_URL=your-production-db-url
 JWT_SECRET=your-strong-production-secret
 JWT_REFRESH_SECRET=your-strong-refresh-secret
 FRONTEND_URL=https://your-frontend-domain.com
+TELEGRAM_BOT_TOKEN=your-telegram-bot-token
 ```
 
 ### Docker Deployment (Optional)
@@ -391,10 +451,6 @@ npm run cleanup:tokens
 ## 📞 Support
 
 For support, email support@Bloodlink.org or create an issue in the repository.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
